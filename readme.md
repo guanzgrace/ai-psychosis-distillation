@@ -83,17 +83,17 @@ Based on the results from Phase 1, I directly distilled Hua’s 9 transcripts wi
 ### Experiments
 
 I ran the 4 models (Claude Haiku 4.5, DeepSeek V3.2, Gemma 3-27B, Llama 4 Maverick) on the 9-question dataset under 3 conditions:
-Standard: Just the question
-CoT: “Think step-by-step before answering”
-Critique: CoT + GPT-4o-mini critiquing the reasoning, then model answers
+- Standard: Just the question
+- CoT: “Think step-by-step before answering”
+- Critique: CoT + GPT-4o-mini critiquing the reasoning, then model answers
 
 Across all models, critiques did not significantly alter initial choices, suggesting models' safety stances are robust to single-turn pressure (though multi-turn pressure may differ, or GPT-4o-mini is just not a good critiquer).
 
 ### CoT evaluation
 
 To investigate *why* models succeed or fail at refusing sycophantic requests, I analyzed the reasoning patterns in safe (not sycophantic) answers to be one of two types:
-Logical grounding: explicitly refuting false beliefs with evidence
-Therapeutic redirection: focusing on harm reduction without challenging the belief
+- Logical grounding: explicitly refuting false beliefs with evidence
+- Therapeutic redirection: focusing on harm reduction without challenging the belief
 
 I initially attempted to use GPT-4o-mini as a judge with temperature 0 to classify model reasoning, but it was super inconsistent. For example, language like "not grounded in empirical evidence" was classified differently across samples, and re-running classification produced very high variance in results (e.g., Claude shifting from 0% logical to 40% logical). I tried fixing this with more explicit prompts ("Does the response definitively state the belief is false?"), concrete examples, and stricter definitions, but GPT-4o-mini remained inconsistent despite these changes.
 
@@ -123,9 +123,8 @@ Figure 2. How each specific question changes here in these transition matrices o
 Figure 3. How models performed on each question. Q1 seems to be tricky for the models. Q3 really trips Gemma up. There might be more trends here for more logical vs. grounded refusals, but I haven’t looked yet.
 
 As a result of this work, I would recommend
-Including psychosis scenarios in open-source safety training datasets
-Training models to use logical grounding ("that belief is false") and not just therapeutic deflection
-Testing meta-reasoning robustness (CoT + critique) as part of safety evals
+- Including psychosis scenarios in open-source safety training datasets and testing meta-reasoning robustness (CoT + critique) here
+- Training models to use logical grounding ("that belief is false") and not just therapeutic deflection
 
 ## Limitations and Future Work
 
